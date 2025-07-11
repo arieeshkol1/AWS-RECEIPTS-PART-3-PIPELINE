@@ -29,3 +29,4 @@ jobs:
           --template-file CreateUsingCloudFormationPhase2.yaml \
           --stack-name receipts-stack \
           --capabilities CAPABILITY_NAMED_IAM
+          --debug
