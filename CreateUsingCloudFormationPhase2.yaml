@@ -31,7 +31,7 @@ Resources:
           yum update -y
           yum install -y python3 git mysql-server
           pip3 install flask pymysql
-
+          #Text#
           systemctl enable mysqld
           systemctl start mysqld
 
