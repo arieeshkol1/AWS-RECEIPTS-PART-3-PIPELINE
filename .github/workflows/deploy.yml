@@ -1,4 +1,4 @@
-name: Deploy CloudFormation Stack
+name: Deploy CloudFormation Phase 3
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -20,9 +20,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
+
       - name: Deploy CloudFormation stack
         run: |
           aws cloudformation deploy \
-            --template-file CreateUsingCloudFormationPhase2.yaml \
+            --template-file CreateUsingCloudFormationPhase3.yaml \
             --stack-name ReceiptsAppStackPhase3 \
             --capabilities CAPABILITY_NAMED_IAM
