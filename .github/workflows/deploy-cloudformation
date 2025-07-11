@@ -1,0 +1,31 @@
+name: Deploy CloudFormation Stack
+
+on:
+  push:
+    branches:
+      - main  # or change to your branch name
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials from OIDC
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::960915223703:role/GitHubOIDC-ReceiptsDeployRole
+        aws-region: us-east-1  # Change to your region
+
+    - name: Deploy CloudFormation
+      run: |
+        aws cloudformation deploy \
+          --template-file CreateUsingCloudFormationPhase2.yaml \
+          --stack-name receipts-stack \
+          --capabilities CAPABILITY_NAMED_IAM
