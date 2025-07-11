@@ -3,7 +3,7 @@ name: Deploy CloudFormation Stack
 on:
   push:
     branches:
-      - main  # Or any other branch you want to trigger deployment
+      - main  # Change if you deploy from another branch
 
 jobs:
   deploy:
@@ -23,6 +23,7 @@ jobs:
       - name: Deploy CloudFormation stack
         run: |
           aws cloudformation deploy \
-            --template-file templates/my-stack.yml \
-            --stack-name MyDemoStack \
+            --template-file CreateUsingCloudFormationPhase2.yaml \
+            --stack-name ReceiptsAppStack \
             --capabilities CAPABILITY_NAMED_IAM
+
